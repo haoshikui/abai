@@ -1,0 +1,128 @@
+1. 删除原有旧表
+
+drop table MY_DATA_1HZ;
+drop table MY_DATA_4HZ;
+drop table cge.data_file_task;
+drop table cge.data_import_log;
+drop table cge.plan_file_log;
+drop table cge.my_data;
+drop table cge.plan_data;
+
+
+2. 创建新表
+--------------------------1Hz数据表 
+create table cge.MY_DATA_1HZ
+(
+  TSAT        VARCHAR2(30),
+  TACC        VARCHAR2(30),
+  VOLTAGE_5V  VARCHAR2(30),
+  VOLTAGE_12V VARCHAR2(30),
+  VOLTAGE_60V VARCHAR2(30),
+  X1          VARCHAR2(30),
+  X2          VARCHAR2(30),
+  X3          VARCHAR2(30),
+  Y           VARCHAR2(30),
+  Z1          VARCHAR2(30),
+  Z2          VARCHAR2(30),
+  CTL_STATE   VARCHAR2(30),
+  VOLTAGE_VB  VARCHAR2(30),
+  T1          VARCHAR2(30),
+  T2          VARCHAR2(30),
+  T3          VARCHAR2(30),
+  T4          VARCHAR2(30),
+  DPX         VARCHAR2(30),
+  DPY         VARCHAR2(30),
+  DPZ         VARCHAR2(30),
+  DPRX        VARCHAR2(30),
+  DPRY        VARCHAR2(30),
+  DPRZ        VARCHAR2(30),
+  BJTIME      DATE,
+  VERR_X      VARCHAR2(30),
+  VERR_Y      VARCHAR2(30),
+  VERR_Z      VARCHAR2(30),
+  VERR_RX     VARCHAR2(30),
+  VERR_RY     VARCHAR2(30),
+  VERR_RZ     VARCHAR2(30),
+  VT1          VARCHAR2(30),
+  VT2          VARCHAR2(30),
+  VT3          VARCHAR2(30),
+  VT4          VARCHAR2(30)
+);
+
+---------------------4Hz数据表
+create table cge.MY_DATA_4HZ
+(
+  TSAT    VARCHAR2(30),
+  TACC    VARCHAR2(30),
+  BJTIME  DATE,
+  X_AFED  VARCHAR2(30),
+  Y_AFED  VARCHAR2(30),
+  Z_AFED  VARCHAR2(30),
+  RX_AFED VARCHAR2(30),
+  RY_AFED VARCHAR2(30),
+  RZ_AFED VARCHAR2(30),
+  X_VFED  VARCHAR2(30),
+  Y_VFED  VARCHAR2(30),
+  Z_VFED  VARCHAR2(30),
+  RX_VFED VARCHAR2(30),
+  RY_VFED VARCHAR2(30),
+  RZ_VFED VARCHAR2(30),
+  CTL_STATE   VARCHAR2(30)
+);
+
+--------------------------数据文件记录表
+create table cge.DATA_FILE_TASK
+(
+  FILENAME   VARCHAR2(100),
+  FTPGETTIME DATE,
+  STATUS     VARCHAR2(30),
+  PROTIME    DATE
+);
+
+-------------------------数据文件解析记录表
+create table cge.DATA_IMPORT_LOG
+(
+  FILENAME    VARCHAR2(100),
+  IMPORT_TIME DATE,
+  START_TIME  DATE,
+  END_TIME    DATE,
+  DATA_COUNT  VARCHAR2(30),
+  DATA_QUALITY VARCHAR2(30)
+);
+
+--------------------------计划文件记录表
+create table cge.PLAN_FILE_LOG
+(
+  PLANFILENAME VARCHAR2(100),
+  STATUS       VARCHAR2(10),
+  ON_TIME      DATE,
+  OFF_TIME     DATE
+);
+
+3. 导入数据
+
+1hz数据.txt  ，选择用户cge，表格my_data_1hz
+4hz数据.txt  ，选择用户cge，表格my_data_4hz
+
+演示数据插入记录
+insert into data_import_log
+  (filename, import_time, start_time, end_time, data_count,data_quality)
+values
+  ('test.dat',
+   to_date('20130726221157', 'yyyymmddhh24miss'),
+   to_date('2010/1/1 0:0:1', 'yyyy-mm-dd-hh24:mi:ss'),
+   to_date('2010/1/1 1:0:0', 'yyyy-mm-dd-hh24:mi:ss'),
+   '3600','4');
+commit;
+
+4 开始演示
+
+
+
+
+
+
+
+
+
+
